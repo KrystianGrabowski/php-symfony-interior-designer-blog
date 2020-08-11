@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Blog - Carolineart{% endblock %}
+
+{% block body %}
+<style>
+    html {
+        width: 100vw;;
+    }
+
+    body {
+        width: 100vw;
+        height: 100vh;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .header-wrapper {
+        height: 14rem;
+        background-color: rgba(245, 245, 245);
+    }
+
+    .flex-center {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .navbar {
+        width: 100vw;
+        height: 3rem;
+        background-color: rgba(27, 27, 27, 1);
+    }
+
+    .logo-image {
+        display: block;
+        width: 100%;
+        max-width: 24rem;
+    }
+</style>
+
+<div class="navbar">
+
+</div>
+
+<header>
+    <div class="flex-center header-wrapper">
+        <img class="logo-image" src="logo_black.png" alt="Carolineart">
+    </div>
+</header>
+
+{% endblock %}
