@@ -1,0 +1,22 @@
+.header-wrapper {
+    height: 14rem;
+    background-color: rgb(245, 245, 245);
+}
+
+.flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar {
+    width: 100vw;
+    height: 3rem;
+    background-color: rgb(27, 27, 27);
+}
+
+.logo-image {
+    display: block;
+    width: 100%;
+    max-width: 24rem;
+}

@@ -11,6 +11,7 @@
             <th>Body</th>
             <th>Author</th>
             <th>Created at</th>
+            <th>Show</th>
         </tr>
     </thead>
     <tbody>
@@ -19,7 +20,8 @@
                 <td>{{ post.title }}</td>
                 <td>{{ post.body }}</td>
                 <td>{{ post.author }}</td>
-                <td>{{ post.createdAt|date('Y-m-d h:m:s') }}</td>
+                <td>{{ post.createdAt|date('Y-m-d h:i:s') }}</td>
+                <td><a href="/post/{{ post.id }}" class="btn btn-dark">Show</a></td>
             </tr>
         {% endfor %}
     </tbody>

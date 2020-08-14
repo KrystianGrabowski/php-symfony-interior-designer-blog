@@ -58,4 +58,17 @@ class PostController extends AbstractController
             'form' => $form->createView()
         ]);
     }
+
+    /**
+     * @Route("/post/{id}", name="post_show", methods={"GET"})
+     */
+    public function show($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $post = $entityManager->getRepository(Post::class)->find($id);
+
+        return $this->render('post/show.html.twig', [
+            'post' => $post
+        ]);
+    }
 }
