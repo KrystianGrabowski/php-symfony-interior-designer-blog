@@ -1,0 +1,34 @@
+.post-wrapper {
+    width: 100%;
+}
+
+.post-item {
+    height: 22rem;
+    background-color: mintcream;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+
+    .post-item-photo {
+        display: inline-block;
+    }
+    
+    .post-time-content {
+        padding: 3rem;
+        display: inline-block;
+        text-align: center;
+    
+        .post-item-content-title {
+            display: block;
+            text-decoration: none;
+            font-size: 2rem;
+            color: black;
+            text-align: center;
+        }
+
+        .post-item-content-body {
+            text-align: left;
+            font-size: 1.2rem;
+        }
+    }
+}
+

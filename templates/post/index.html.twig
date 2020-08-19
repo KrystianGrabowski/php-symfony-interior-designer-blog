@@ -4,27 +4,19 @@
 
 {% block body %}
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Body</th>
-            <th>Author</th>
-            <th>Created at</th>
-            <th>Show</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for post in posts %}
-            <tr>
-                <td>{{ post.title }}</td>
-                <td>{{ post.body }}</td>
-                <td>{{ post.author }}</td>
-                <td>{{ post.createdAt|date('Y-m-d h:i:s') }}</td>
-                <td><a href="/post/{{ post.id }}" class="btn btn-dark">Show</a></td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+
+<div class="posts-wrapper mt-3 mb-3">
+    {% for post in posts %}
+        <div class="post-item">
+            <div class="post-item-photo">
+
+            </div>
+            <div class="post-time-content">
+                <a class="post-item-content-title mb-2" href="#">{{ post.title }}</a>
+                <p class="post-item-content-body">{{ post.body }}</p>
+            </div>
+        </div>
+    {% endfor %}
+</div>
 
 {% endblock %}

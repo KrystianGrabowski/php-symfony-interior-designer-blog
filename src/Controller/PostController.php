@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class PostController extends AbstractController
 {
@@ -70,5 +71,19 @@ class PostController extends AbstractController
         return $this->render('post/show.html.twig', [
             'post' => $post
         ]);
+    }
+
+    /**
+     * @Route("/post/{id}", name="post_delete", methods={"DELETE"})
+     */
+    public function delete($id)
+    {
+        $entityManager = $this->getDoctrine()->getManager();
+        $post = $entityManager->getRepository(Post::class)->find($id);
+
+        $entityManager->remove($post);
+        $entityManager->flush();
+
+        return new Response("Post has been deleted");
     }
 }
