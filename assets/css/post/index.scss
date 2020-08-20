@@ -8,6 +8,8 @@
     background-color: rgb(255, 255, 255);
     display: grid;
     grid-template-columns: 1fr 2fr;
+    margin: 2rem 1rem;
+    background-color: whitesmoke;
 
     .post-item-photo {
         display: inline-block;
