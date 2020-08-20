@@ -1,6 +1,10 @@
 @import 'inc/module';
 @import 'post/module';
 
+* {
+    font-family: 'Nunito', sans-serif !important;
+}
+
 html {
     width: 100vw;
     height: 100%;
