@@ -10,13 +10,14 @@
         <div class="post-item">
             <div class="post-item-photo" style="background-image: url('uploads/photos/{{ post.photoName }}')"></div>
             <div class="post-time-content">
-                {# TODO Tags #}
-                #kolory #zasłony #kuchnia
                 <div class="post-item-content-header mb-3">
+                    {# TODO Tags #}
+                    #kolory #zasłony #kuchnia
                     <a class="post-item-content-title" href="post/{{ post.id }}">{{ post.title }}</a>
                     <small>{{ post.author }}</small>
                 </div>
-                <p class="post-item-content-body">{{ post.body[0:200] }}...</p>
+                <p class="post-item-content-body">{{ post.body[0:250] }}...</p>
+                <a class="post-item-content-read btn btn-dark" href="post/{{ post.id }}">Zobacz całość</a>
             </div>
         </div>
     {% endfor %}

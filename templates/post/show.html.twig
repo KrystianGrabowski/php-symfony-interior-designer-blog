@@ -5,9 +5,9 @@
 {% block body %}
 
 <div>
-    <h1>{{post.title}}</h1>
-    <small>{{post.author}}</small>
-    <small>{{post.createdAt|date('Y-m-d h:i:s')}}</small>
+    <h1 class="post-header mt-2 mb-3">{{post.title}}</h1>
+    <div class="post-author">{{post.author}}</div>
+    <div class="post-date">{{post.createdAt|date('Y-m-d h:i:s')}}</div>
     <img class="post-image" src="/uploads/photos/{{ post.photoName }}">
     <p>{{post.body}}</p>
 </div>
