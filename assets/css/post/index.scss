@@ -3,31 +3,41 @@
 }
 
 .post-item {
+    position: relative;
     height: 22rem;
-    background-color: mintcream;
+    background-color: rgb(255, 255, 255);
     display: grid;
     grid-template-columns: 1fr 2fr;
 
     .post-item-photo {
         display: inline-block;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
     
     .post-time-content {
         padding: 3rem;
         display: inline-block;
         text-align: center;
+        height: 100%;
     
-        .post-item-content-title {
-            display: block;
-            text-decoration: none;
-            font-size: 2rem;
-            color: black;
-            text-align: center;
+        .post-item-content-header {
+            .post-item-content-title {
+                display: block;
+                text-decoration: none;
+                font-size: 1.7rem;
+                color: black;
+                text-align: center;
+            }
         }
 
         .post-item-content-body {
-            text-align: left;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            line-height: 1.8rem;
+            letter-spacing: 1px;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
     }
 }

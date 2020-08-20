@@ -37,6 +37,12 @@ class Post
      */
     private $created_at;
 
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $photoName;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -89,4 +95,17 @@ class Post
 
         return $this;
     }
+
+    public function getPhotoName(): ?string
+    {
+        return $this->photoName;
+    }
+
+    public function setPhotoName(string $photoName): self
+    {
+        $this->photoName = $photoName;
+
+        return $this;
+    }
+
 }

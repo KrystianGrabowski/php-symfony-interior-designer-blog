@@ -10,8 +10,12 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 class PostController extends AbstractController
 {
@@ -31,13 +35,23 @@ class PostController extends AbstractController
     /**
      * @Route("/post/new", name="post_new", methods={"GET", "POST"})
      */
-    public function new(Request $request)
+    public function new(Request $request, SluggerInterface $slugger)
     {
         $post = new Post;
 
         $form = $this->createFormBuilder($post)
             ->add('title', TextType::class, array('attr' => array('class' => 'form-control')))
             ->add('body', TextareaType::class, array('attr' => array('class' => 'form-control')))
+            ->add('photo', FileType::class, [
+                'label' => 'Photo (image)',
+                'mapped' => false,
+                'required' => true,
+                'constraints' => [
+                    new Image([
+                        'maxSize' => '10M'
+                    ])
+                ],
+            ])
             ->add('save', SubmitType::class, array('label' => 'Create Post', 'attr' => array('class' => 'btn btn-primary mt-2')))
             ->getForm();
 
@@ -47,6 +61,24 @@ class PostController extends AbstractController
             $post = $form->getData();
             $post->setCreatedAt(new DateTime('now'));
             $post->setAuthor('John Doe');
+
+            $photo = $form->get('photo')->getData();
+            if ($photo) {
+                $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
+                $safeFilename = $slugger->slug($originalFilename);
+                $newFilename = $safeFilename.'-'.uniqid().'.'.$photo->guessExtension();
+
+                try {
+                    $photo->move(
+                        $this->getParameter('post_photo_directory'),
+                        $newFilename
+                    );
+                } catch (FileException $e) {
+                    // TODO
+                }
+
+                $post->setPhotoName($newFilename);
+            }
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);

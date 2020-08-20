@@ -8,12 +8,15 @@
 <div class="posts-wrapper mt-3 mb-3">
     {% for post in posts %}
         <div class="post-item">
-            <div class="post-item-photo">
-
-            </div>
+            <div class="post-item-photo" style="background-image: url('uploads/photos/{{ post.photoName }}')"></div>
             <div class="post-time-content">
-                <a class="post-item-content-title mb-2" href="#">{{ post.title }}</a>
-                <p class="post-item-content-body">{{ post.body }}</p>
+                {# TODO Tags #}
+                #kolory #zasłony #kuchnia
+                <div class="post-item-content-header mb-3">
+                    <a class="post-item-content-title" href="post/{{ post.id }}">{{ post.title }}</a>
+                    <small>{{ post.author }}</small>
+                </div>
+                <p class="post-item-content-body">{{ post.body[0:200] }}...</p>
             </div>
         </div>
     {% endfor %}
