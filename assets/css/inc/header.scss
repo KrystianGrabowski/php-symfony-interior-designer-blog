@@ -1,4 +1,4 @@
-.header-wrapper {
+.logo-wrapper {
     height: 14rem;
     background-color: rgb(245, 245, 245);
 }
@@ -9,10 +9,16 @@
     justify-content: center;
 }
 
-.navbar {
+.social-media-bar {
     width: 100vw;
     height: 3rem;
     background-color: rgb(27, 27, 27);
+}
+
+.navbar-wrapper {
+    width: 100vw;
+    height: 3rem;
+    background-color: rgb(230, 230, 230);
 }
 
 .logo-image {

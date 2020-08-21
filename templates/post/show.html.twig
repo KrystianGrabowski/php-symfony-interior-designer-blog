@@ -5,6 +5,11 @@
 {% block body %}
 
 <div class="post-wrapper">
+    <div class="post-tags">
+        {% for postTag in post.getPostTags %}
+            {{ postTag.getTag.name }}
+        {% endfor %}
+    </div>
     <h1 class="post-header mt-2 mb-3">{{post.title}}</h1>
     <div class="post-author">{{post.author}}</div>
     <div class="post-date">{{post.createdAt|date('Y-m-d h:i:s')}}</div>

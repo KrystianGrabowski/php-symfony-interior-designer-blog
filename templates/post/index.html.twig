@@ -11,8 +11,9 @@
             <div class="post-item-photo" style="background-image: url('uploads/photos/{{ post.photoName }}')"></div>
             <div class="post-time-content">
                 <div class="post-item-content-header mb-3">
-                    {# TODO Tags #}
-                    #kolory #zasłony #kuchnia
+                    {% for postTag in post.getPostTags %}
+                        {{ postTag.getTag.name }}
+                    {% endfor %}
                     <a class="post-item-content-title" href="post/{{ post.id }}">{{ post.title }}</a>
                     <small>{{ post.author }}</small>
                 </div>

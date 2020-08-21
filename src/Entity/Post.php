@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -42,6 +44,16 @@ class Post
      * @ORM\Column(type="string", length=255)
      */
     private $photoName;
+
+    /**
+     * @ORM\OneToMany(targetEntity=PostTag::class, mappedBy="post", orphanRemoval=true)
+     */
+    private $post_tags;
+
+    public function __construct()
+    {
+        $this->post_tags = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -104,6 +116,37 @@ class Post
     public function setPhotoName(string $photoName): self
     {
         $this->photoName = $photoName;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PostTag[]
+     */
+    public function getPostTags(): Collection
+    {
+        return $this->post_tags;
+    }
+
+    public function addPostTag(PostTag $postTag): self
+    {
+        if (!$this->post_tags->contains($postTag)) {
+            $this->post_tags[] = $postTag;
+            $postTag->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostTag(PostTag $postTag): self
+    {
+        if ($this->post_tags->contains($postTag)) {
+            $this->post_tags->removeElement($postTag);
+            // set the owning side to null (unless already changed)
+            if ($postTag->getPost() === $this) {
+                $postTag->setPost(null);
+            }
+        }
 
         return $this;
     }

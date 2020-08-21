@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Post;
+use App\Entity\PostTag;
+use App\Entity\Tag;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,11 +39,15 @@ class PostController extends AbstractController
      */
     public function new(Request $request, SluggerInterface $slugger)
     {
+        // TODO
+        // Split code
+
         $post = new Post;
 
         $form = $this->createFormBuilder($post)
             ->add('title', TextType::class, array('attr' => array('class' => 'form-control')))
             ->add('body', TextareaType::class, array('attr' => array('class' => 'form-control')))
+            ->add('tags', TextType::class, array('attr' => array('class' => 'form-control'), 'mapped' => false))
             ->add('photo', FileType::class, [
                 'label' => 'Photo (image)',
                 'mapped' => false,
@@ -61,7 +67,8 @@ class PostController extends AbstractController
             $post = $form->getData();
             $post->setCreatedAt(new DateTime('now'));
             $post->setAuthor('John Doe');
-
+            
+            
             $photo = $form->get('photo')->getData();
             if ($photo) {
                 $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
@@ -82,6 +89,27 @@ class PostController extends AbstractController
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($post);
+
+            $tags = $form->get('tags')->getData();
+            $tags = preg_split('/\s+/', $tags, -1, PREG_SPLIT_NO_EMPTY);
+
+            foreach($tags as $tagName)
+            {
+                $postTag = new PostTag;
+                $postTag->setPost($post);
+
+                $tag = $entityManager->getRepository(Tag::class)->findOneBy(['name' => $tagName]);
+                if ($tag == null)
+                {
+                    $tag = new Tag;
+                    $tag->setName($tagName);
+                    $entityManager->persist($tag);
+                }
+
+                $postTag->setTag($tag);
+                $entityManager->persist($postTag);
+            }
+
             $entityManager->flush();
 
             return $this->redirectToRoute('posts');
